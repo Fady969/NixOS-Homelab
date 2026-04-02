@@ -10,6 +10,8 @@ HOSTS_DIR="/etc/nixos/hosts"
 
 echo "Target host: $HOST"
 
+cd $REPO_DIR
+
 # Sanity check
 if [ ! -d "${HOSTS_DIR}/${HOST}" ]; then
 	echo " Host '$1' does not exist in ${HOSTS_DIR}"
