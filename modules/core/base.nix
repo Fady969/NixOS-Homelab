@@ -33,7 +33,7 @@
 			ls = "ls --color=tty";
 			lt = "";
 
-			rebuild = "./etc/nixos/scripts/rebuild.sh";
+			rebuild = "/etc/nixos/scripts/rebuild.sh";
 		};
 
 		git = {
