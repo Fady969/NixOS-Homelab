@@ -9,7 +9,7 @@ in
 		containers.filebrowser = {
 			image = "docker.io/filebrowser/filebrowser:latest";
 
-			ports = [ "8081:80" ];
+			ports = [ "8081:8080" ];
 			autoStart = true;
 
 			volumes = [
@@ -19,6 +19,9 @@ in
 			extraOptions = [	
 				"--name=filebrowser"
 			];
+			environment = {
+				"FB_PORT" = "8080";
+			};
 		};
 	};
 }
