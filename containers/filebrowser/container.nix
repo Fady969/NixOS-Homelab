@@ -11,6 +11,7 @@ in
     uid = 999;
     isSystemUser = true;
     group = "filebrowser";
+		linger = true;
     createHome = false;
     home = "/var/lib/filebrowser";
     description = "FileBrowser service user";
@@ -28,6 +29,7 @@ in
 	virtualisation.oci-containers = {
 		backend = "podman";
 		containers.filebrowser = {
+			podman.user = "${user}";
 			image = "docker.io/filebrowser/filebrowser:latest";
 
 			ports = [ "8081:8080" ];
@@ -39,7 +41,6 @@ in
 
 			extraOptions = [	
 				"--name=filebrowser"
-				"--user=${toString uid}:${toString uid}"
 			];
 			environment = {
 				"FB_PORT" = "8080";
