@@ -11,7 +11,8 @@ in
     uid = 999;
     isSystemUser = true;
     group = "filebrowser";
-		linger = true;
+		linger = false;
+		autoSubUidGidRange = true;
     createHome = false;
     home = "/var/lib/filebrowser";
     description = "FileBrowser service user";
