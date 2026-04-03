@@ -3,23 +3,22 @@
 let
   dataDir = "/var/lib/filebrowser";
 	user = "filebrowser";
-	uid = "999";
+	uid = 999;
 in
 {
   #Create user and group
   users.users.${user} = {
-    uid = 999;
+    uid = uid;
     isSystemUser = true;
-    group = "filebrowser";
-		linger = false;
-		autoSubUidGidRange = true;
-    createHome = false;
-    home = "/var/lib/filebrowser";
+    group = user;
+		linger = true;
+    createHome = true;
+    home = dataDir;
     description = "FileBrowser service user";
   };
   
   users.groups.${user} = {
-    gid = 999;
+    gid = uid;
   };
 
   systemd.tmpfiles.rules = [
@@ -28,13 +27,13 @@ in
 
  
 	virtualisation.oci-containers = {
-		backend = "podman";
 		containers.filebrowser = {
 			podman.user = "${user}";
 			image = "docker.io/filebrowser/filebrowser:latest";
 
-			ports = [ "8081:8080" ];
+			ports = [ "127.0.0.1:8081:8080" ];
 			autoStart = true;
+			podman.sdnotify = "container";					# remove when fix is merged https://github.com/NixOS/nixpkgs/pull/483309
 
 			volumes = [
 				"${dataDir}:/srv"
@@ -45,7 +44,14 @@ in
 			];
 			environment = {
 				"FB_PORT" = "8080";
+				"FB_DATABASE" = "/data/filebrowser.db";
 			};
+		};
+	};
+	
+	systemd.services."podman-filebrowser" = {
+		serviceConfig = {
+			Delegate = "yes";
 		};
 	};
 }
