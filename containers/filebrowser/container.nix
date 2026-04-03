@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  dataDir = "./data";
+  dataDir = "/etc/nixos/containers/filebrowser/data";
 in
 {
 	virtualisation.oci-containers = {
