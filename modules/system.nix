@@ -9,7 +9,7 @@
 		./services/nginx.nix
 		./services/monitoring.nix
 
-		# ./virtuilization/podman.nix
+		./virtualization/podman.nix
 	
 
 		#./../containers/.../container.nix
