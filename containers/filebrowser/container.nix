@@ -1,0 +1,25 @@
+{ config, pkgs, ... }:
+
+let
+  dataDir = "./data";
+in
+{
+	virtualisation.oci-containers = {
+		backend = "podman";
+		containers.filebrowser = {
+			image = "docker.io/filebrowser/filebrowser:latest";
+
+			ports = [ "8081:80" ];
+
+			volumes = [
+				"${dataDir}:/srv"
+				"${dataDir}/filebrowser.db:/database.db"
+				"${dataDir}/settings.json:/config/settings.json"
+			];
+
+			extraOptions = [	
+				"--name=filebrowser"
+			];
+  	};
+	};
+}
