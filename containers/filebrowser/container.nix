@@ -14,8 +14,6 @@ in
 
 			volumes = [
 				"${dataDir}:/srv"
-				"${dataDir}/filebrowser.db:/database.db"
-				"${dataDir}/settings.json:/config/settings.json"
 			];
 
 			extraOptions = [	
