@@ -6,7 +6,9 @@
 		podman = {
 			enable = true;
 			dockerCompat = true;
-			defaultNetwork.settings.dns_enabled = false;
+			defaultNetwork.settings = {
+				dns_servers = [ "127.0.0.1" ];
+			};
 		};
 	};
 
