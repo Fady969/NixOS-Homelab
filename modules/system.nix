@@ -12,7 +12,7 @@
 		./virtualization/podman.nix
 	
 
-		#./../containers/filebrowser/container.nix
+		./../containers/filebrowser/container.nix
 		#./../vms/.../vm.nix
 	];
 }
