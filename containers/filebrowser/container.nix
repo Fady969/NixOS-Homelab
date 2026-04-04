@@ -14,6 +14,7 @@ in
 		linger = true;
     createHome = true;
     home = dataDir;
+		autoSubUidGidRange = true;
     description = "FileBrowser service user";
   };
   
@@ -33,10 +34,11 @@ in
 
 			ports = [ "127.0.0.1:8081:8080" ];
 			autoStart = true;
-			podman.sdnotify = "container";					# remove when fix is merged https://github.com/NixOS/nixpkgs/pull/483309
+			#podman.sdnotify = "container";					# remove when fix is merged https://github.com/NixOS/nixpkgs/pull/483309
 
 			volumes = [
 				"${dataDir}:/srv"
+				"${dataDir}:/data:/config"
 			];
 
 			extraOptions = [	
@@ -44,7 +46,7 @@ in
 			];
 			environment = {
 				"FB_PORT" = "8080";
-				"FB_DATABASE" = "/data/filebrowser.db";
+				"FB_DATABASE" = "/config/filebrowser.db";
 			};
 		};
 	};
