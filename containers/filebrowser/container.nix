@@ -23,7 +23,8 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "d ${dataDir} 0750 ${user} ${user} -"
+    "d ${dataDir} 1754 ${user} ${user} -"
+	#	"d ${dataDir}/config 0754 ${user} ${user} -"
   ];
 
  
