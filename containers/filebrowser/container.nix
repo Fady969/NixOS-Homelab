@@ -3,7 +3,7 @@
 let
   dataDir = "/var/lib/filebrowser";
 	user = "filebrowser";
-	uid = 999;
+	uid = 1001;
 in
 {
   #Create user and group
@@ -23,8 +23,9 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "d ${dataDir} 0754 ${user} ${user} -"
+    "d ${dataDir} 0753 ${user} ${user} -"
 		"d ${dataDir}/config 0754 ${user} ${user} -"
+		"d ${dataDir}/srv 0754 ${user} ${user} -"
   ];
 
  
@@ -38,12 +39,13 @@ in
 			#podman.sdnotify = "container";					# remove when fix is merged https://github.com/NixOS/nixpkgs/pull/483309
 
 			volumes = [
-				"${dataDir}:/srv"
-				"${dataDir}:/config:/config"
+				"${dataDir}/srv:/srv:U"
+				"${dataDir}/config:/config:U"
 			];
 
 			extraOptions = [	
-				"--name=filebrowsera"
+				"--name=filebrowser"
+				"--user=1001:1001"
 			];
 			environment = {
 				"FB_PORT" = "8080";

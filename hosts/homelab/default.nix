@@ -10,7 +10,7 @@
 
 		../../modules/virtualization/podman.nix
 
-		# ../../containers/filebrowser/container.nix
+		../../containers/filebrowser/container.nix
 
 	];
 
