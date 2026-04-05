@@ -23,15 +23,14 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "d ${dataDir} 0753 ${user} ${user} -"
-		"d ${dataDir}/config 0754 ${user} ${user} -"
-		"d ${dataDir}/srv 0754 ${user} ${user} -"
+    "d ${dataDir} 0770 ${user} ${user} -"
+		"d ${dataDir}/config 0770 ${user} ${user} -"
+		"d ${dataDir}/srv 0770 ${user} ${user} -"
   ];
 
  
 	virtualisation.oci-containers = {
 		containers.filebrowser = {
-			podman.user = "${user}";
 			image = "docker.io/filebrowser/filebrowser:latest";
 
 			ports = [ "127.0.0.1:8081:8080" ];
@@ -39,13 +38,13 @@ in
 			#podman.sdnotify = "container";					# remove when fix is merged https://github.com/NixOS/nixpkgs/pull/483309
 
 			volumes = [
-				"${dataDir}/srv:/srv:U"
-				"${dataDir}/config:/config:U"
+				"${dataDir}/srv:/srv"
+				"${dataDir}/config:/config"
 			];
 
 			extraOptions = [	
 				"--name=filebrowser"
-				"--user=1001:1001"
+				"--userns=keep-id"
 			];
 			environment = {
 				"FB_PORT" = "8080";
@@ -54,9 +53,4 @@ in
 		};
 	};
 	
-	systemd.services."podman-filebrowser" = {
-		serviceConfig = {
-			Delegate = "yes";
-		};
-	};
 }
